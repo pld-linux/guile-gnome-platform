@@ -1,0 +1,11 @@
+--- guile-gnome-platform-2.15.92/corba/gnome/corba/Makefile.am.orig	2007-05-20 18:39:16.000000000 +0200
++++ guile-gnome-platform-2.15.92/corba/gnome/corba/Makefile.am	2007-05-26 22:07:43.189771490 +0200
+@@ -15,7 +15,7 @@
+ libguile_gnome_corba_@API_VERSION@_la_CFLAGS = $(CORBA_CFLAGS)  \
+   $(AM_CFLAGS) $(GUILE_GLIB_CFLAGS) $(GUILE_CFLAGS) -DORBIT2_STUBS_API
+ 
+-libguile_gnome_corba_@API_VERSION@_la_LIBADD = $(GUILE_GLIB_LIBS) $(GUILE_LIBS)
++libguile_gnome_corba_@API_VERSION@_la_LIBADD = $(CORBA_LIBS) $(GUILE_GLIB_LIBS) $(GUILE_LIBS)
+ libguile_gnome_corba_@API_VERSION@_la_LDFLAGS = -export-dynamic # FIXME: version info
+ 
+ guile_gnome_includedir = $(includedir)/guile-gnome-@API_VERSION@
