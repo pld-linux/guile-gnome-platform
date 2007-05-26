@@ -12,9 +12,12 @@ Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/pub/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
 # Source0-md5:	936c25bab46578b4b55cf755ace6582d
 Patch0:		%{name}-info.patch
+Patch1:		%{name}-link.patch
 URL:		http://www.gnu.org/software/guile-gnome/
 BuildRequires:	GConf2-devel >= 2.18
 BuildRequires:	atk-devel >= 1:1.12
+BuildRequires:	autoconf >= 2.52
+BuildRequires:	automake
 BuildRequires:	g-wrap-devel >= 2:1.9.8
 BuildRequires:	glib2-devel >= 1:2.10.0
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.16.0}
@@ -26,6 +29,7 @@ BuildRequires:	libglade2-devel >= 1:2.6
 %{?with_gnome:BuildRequires:	libgnome-devel >= 2.16}
 BuildRequires:	libgnomecanvas-devel >= 2.14
 %{?with_gnome:BuildRequires:	libgnomeui-devel >= 2.16.0}
+BuildRequires:	libtool
 BuildRequires:	pango-devel >= 1:1.14
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	texinfo
@@ -253,16 +257,27 @@ międzynarodowego tekstu.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-%configure
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
+%configure \
+	--disable-Werror
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/guile-gnome-0/libgw-guile-gnome-*.la
+# example module
+%{?with_gnome:rm -f $RPM_BUILD_ROOT%{_libdir}/orbit-2.0/Foo_module.*}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -300,7 +315,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/cairo.scm
 %{_datadir}/guile-gnome-0/gnome/gw/cairo-spec.scm
 # cairo-devel
-#%{_pkgconfigdir}/guile-gnome-cairo.pc
+#%{_pkgconfigdir}/guile-gnome-cairo-0.pc
 
 %files -n guile-gnome-canvas
 %defattr(644,root,root,755)
@@ -316,8 +331,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc corba/{AUTHORS,ChangeLog,NEWS,README}
 %attr(755,root,root) %{_libdir}/libguile-gnome-corba-0.so.*.*.*
+%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-corba.so*
 %{_datadir}/guile-gnome-0/gnome/corba.scm
 %{_datadir}/guile-gnome-0/gnome/corba
+%{_datadir}/guile-gnome-0/gnome/gw/corba.scm
 %{_datadir}/guile-gnome-0/gnome/gw/corba-spec.scm
 
 %files -n guile-gnome-corba-devel
@@ -371,6 +388,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc gnome-vfs/{AUTHORS,ChangeLog,NEWS,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-gnome-vfs.so*
 %{_datadir}/guile-gnome-0/gnome/vfs.scm
+%{_datadir}/guile-gnome-0/gnome/gw/gnome-vfs.scm
 %{_datadir}/guile-gnome-0/gnome/gw/gnome-vfs-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/gnome-vfs.defs*
 %endif
@@ -409,17 +427,20 @@ rm -rf $RPM_BUILD_ROOT
 %doc libgnome/{AUTHORS,ChangeLog,NEWS,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-libgnome.so*
 %{_datadir}/guile-gnome-0/gnome/gnome.scm
+%{_datadir}/guile-gnome-0/gnome/gw/libgnome.scm
 %{_datadir}/guile-gnome-0/gnome/gw/libgnome-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/libgnome.defs
 
 %files -n guile-gnome-libgnomeui
 %defattr(644,root,root,755)
 %doc libgnomeui/{AUTHORS,ChangeLog,NEWS,README}
+%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-libgnomeui.so*
 %{_datadir}/guile-gnome-0/gnome/gnome-ui.scm
+%{_datadir}/guile-gnome-0/gnome/gw/libgnomeui.scm
 %{_datadir}/guile-gnome-0/gnome/gw/libgnomeui-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/libgnomeui.defs*
 # libgnomeui-devel
-%{_pkgconfigdir}/guile-gnome-libgnomeui.pc
+%{_pkgconfigdir}/guile-gnome-libgnomeui-0.pc
 %endif
 
 %files -n guile-gnome-pango
