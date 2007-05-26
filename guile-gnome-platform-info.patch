@@ -1,0 +1,14 @@
+--- guile-gnome-platform-2.15.92/docs/guile-gnome-tutorial.texi.orig	2007-05-20 18:39:49.000000000 +0200
++++ guile-gnome-platform-2.15.92/docs/guile-gnome-tutorial.texi	2007-05-26 12:29:06.874559732 +0200
+@@ -6,9 +6,9 @@
+ @set UPDATED 6 May 2007
+ @syncodeindex pg cp
+ @comment %**end of header
+-@dircategory The Algorithmic Language Scheme
++@dircategory Programming Languages:
+ @direntry
+-* guile-gnome: (guile-gnome-tutorial).   An introduction to guile-gnome.
++* guile-gnome: (guile-gnome-tutorial).	An introduction to guile-gnome
+ @end direntry
+ @copying
+ Copyright @copyright{} 2001 Martin Baulig
