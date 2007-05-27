@@ -13,6 +13,7 @@ Source0:	http://ftp.gnu.org/pub/gnu/guile-gnome/guile-gnome-platform/%{name}-%{v
 # Source0-md5:	936c25bab46578b4b55cf755ace6582d
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-link.patch
+Patch2:		%{name}-make.patch
 URL:		http://www.gnu.org/software/guile-gnome/
 BuildRequires:	GConf2-devel >= 2.18
 BuildRequires:	atk-devel >= 1:1.12
@@ -258,6 +259,7 @@ międzynarodowego tekstu.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -307,7 +309,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/atk.scm
 %{_datadir}/guile-gnome-0/gnome/gw/atk.scm
 %{_datadir}/guile-gnome-0/gnome/gw/atk-spec.scm
-#%{_datadir}/guile-gnome-0/gnome/overrides/atk.defs
+%{_datadir}/guile-gnome-0/gnome/overrides/atk.defs
 
 %files -n guile-gnome-cairo
 %defattr(644,root,root,755)
@@ -315,7 +317,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/cairo.scm
 %{_datadir}/guile-gnome-0/gnome/gw/cairo-spec.scm
 # cairo-devel
-#%{_pkgconfigdir}/guile-gnome-cairo-0.pc
+%{_pkgconfigdir}/guile-gnome-cairo-0.pc
 
 %files -n guile-gnome-canvas
 %defattr(644,root,root,755)
