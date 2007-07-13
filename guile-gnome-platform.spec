@@ -5,12 +5,12 @@
 Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
-Version:	2.15.92
-Release:	2
+Version:	2.15.93
+Release:	1
 License:	GPL v2+
 Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/pub/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
-# Source0-md5:	936c25bab46578b4b55cf755ace6582d
+# Source0-md5:	c74e081f8312cdbd4a5bc62e8239203c
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-make.patch
@@ -314,7 +314,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -n guile-gnome-cairo
 %defattr(644,root,root,755)
 %doc cairo/{AUTHORS,ChangeLog,NEWS,README}
+%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-cairo.so*
 %{_datadir}/guile-gnome-0/gnome/cairo.scm
+%{_datadir}/guile-gnome-0/gnome/gw/cairo.scm
 %{_datadir}/guile-gnome-0/gnome/gw/cairo-spec.scm
 # cairo-devel
 %{_pkgconfigdir}/guile-gnome-cairo-0.pc
