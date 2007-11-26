@@ -1,14 +1,143 @@
 --- guile-gnome-platform-2.15.92/docs/guile-gnome-tutorial.texi.orig	2007-05-20 18:39:49.000000000 +0200
 +++ guile-gnome-platform-2.15.92/docs/guile-gnome-tutorial.texi	2007-05-26 12:29:06.874559732 +0200
-@@ -6,9 +6,9 @@
- @set UPDATED 6 May 2007
- @syncodeindex pg cp
+@@ -8,7 +8,7 @@
  @comment %**end of header
--@dircategory The Algorithmic Language Scheme
-+@dircategory Programming Languages:
+ @dircategory The Algorithmic Language Scheme
  @direntry
 -* guile-gnome: (guile-gnome-tutorial).   An introduction to guile-gnome.
 +* guile-gnome: (guile-gnome-tutorial).	An introduction to guile-gnome
  @end direntry
  @copying
  Copyright @copyright{} 2001 Martin Baulig
+--- guile-gnome-platform-2.15.95/glib/doc/glib/guile-gnome-glib.texi.orig	2007-09-02 12:18:22.000000000 +0200
++++ guile-gnome-platform-2.15.95/glib/doc/glib/guile-gnome-glib.texi	2007-11-26 23:19:44.658508679 +0100
+@@ -51,7 +51,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-GLib: (guile-gnome-glib.info).  Functions from the GLib library.
++* Guile-GLib: (guile-gnome-glib).	Functions from the GLib library
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/atk/doc/guile-gnome-atk.texi.orig	2007-09-06 23:16:30.000000000 +0200
++++ guile-gnome-platform-2.15.95/atk/doc/guile-gnome-atk.texi	2007-11-26 23:18:21.653778508 +0100
+@@ -24,7 +24,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-Atk: (guile-gnome-atk.info).  The Accessibility ToolKit.
++* Guile-Atk: (guile-gnome-atk).		The Accessibility ToolKit
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/pango/doc/pango/guile-gnome-pango.texi.orig	2007-09-08 18:37:20.000000000 +0200
++++ guile-gnome-platform-2.15.95/pango/doc/pango/guile-gnome-pango.texi	2007-11-26 23:24:11.577719538 +0100
+@@ -24,7 +24,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-Pango: (guile-gnome-pango.info).  Text layout and rendering.
++* Guile-Pango: (guile-gnome-pango).	Text layout and rendering
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/pango/doc/pangocairo/guile-gnome-pangocairo.texi.orig	2007-09-08 19:06:42.000000000 +0200
++++ guile-gnome-platform-2.15.95/pango/doc/pangocairo/guile-gnome-pangocairo.texi	2007-11-26 23:24:25.286500757 +0100
+@@ -24,7 +24,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-PangoCairo: (guile-gnome-pangocairo.info).  Pango+Cairo.
++* Guile-PangoCairo: (guile-gnome-pangocairo).  Pango+Cairo
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/gtk/doc/gdk/guile-gnome-gdk.texi.orig	2007-09-09 15:56:44.000000000 +0200
++++ guile-gnome-platform-2.15.95/gtk/doc/gdk/guile-gnome-gdk.texi	2007-11-26 23:20:51.714329972 +0100
+@@ -73,7 +73,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-Gdk: (guile-gnome-gdk.info).  The GIMP Drawing Kit.
++* Guile-Gdk: (guile-gnome-gdk).		The GIMP Drawing Kit
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/gtk/doc/gtk/guile-gnome-gtk.texi.orig	2007-09-09 14:59:47.000000000 +0200
++++ guile-gnome-platform-2.15.95/gtk/doc/gtk/guile-gnome-gtk.texi	2007-11-26 23:22:01.822325200 +0100
+@@ -51,7 +51,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-Gtk: (guile-gnome-gtk.info).  The GIMP ToolKit.
++* Guile-Gtk: (guile-gnome-gtk).		The GIMP ToolKit
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/libgnomeui/doc/guile-gnome-libgnomeui.texi.orig	2007-11-01 14:12:50.000000000 +0100
++++ guile-gnome-platform-2.15.95/libgnomeui/doc/guile-gnome-libgnomeui.texi	2007-11-26 23:23:51.120553750 +0100
+@@ -24,7 +24,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-Libgnomeui: (guile-gnome-libgnomeui.info).  A deprecated GNOME UI lib.
++* Guile-Libgnomeui: (guile-gnome-libgnomeui.  A deprecated GNOME UI lib
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/libgnomecanvas/doc/guile-gnome-libgnomecanvas.texi.orig	2007-11-01 14:28:49.000000000 +0100
++++ guile-gnome-platform-2.15.95/libgnomecanvas/doc/guile-gnome-libgnomecanvas.texi	2007-11-26 23:23:32.091469344 +0100
+@@ -24,7 +24,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-Libgnomecanvas: (guile-gnome-libgnomecanvas.info).  Structured graphics.
++* Guile-Libgnomecanvas: (guile-gnome-libgnomecanvas).  Structured graphics
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/libgnome/doc/guile-gnome-libgnome.texi.orig	2007-11-01 17:47:20.000000000 +0100
++++ guile-gnome-platform-2.15.95/libgnome/doc/guile-gnome-libgnome.texi	2007-11-26 23:23:09.562185474 +0100
+@@ -24,7 +24,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-Libgnome: (guile-gnome-libgnome.info).  A GNOME catchall library.
++* Guile-Libgnome: (guile-gnome-libgnome).  A GNOME catchall library
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/libglade/doc/guile-gnome-libglade.texi.orig	2007-11-01 17:57:30.000000000 +0100
++++ guile-gnome-platform-2.15.95/libglade/doc/guile-gnome-libglade.texi	2007-11-26 23:22:49.137021510 +0100
+@@ -28,7 +28,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-Libglade: (guile-gnome-libglade.info).  Load GTK+ interfaces from XML.
++* Guile-Libglade: (guile-gnome-libglade).  Load GTK+ interfaces from XML
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/gnome-vfs/doc/guile-gnome-gnome-vfs.texi.orig	2007-11-08 11:55:57.000000000 +0100
++++ guile-gnome-platform-2.15.95/gnome-vfs/doc/guile-gnome-gnome-vfs.texi	2007-11-26 23:20:25.764851195 +0100
+@@ -24,7 +24,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-GNOME-VFS: (guile-gnome-gnome-vfs.info).  The GNOME virtual file system.
++* Guile-GNOME-VFS: (guile-gnome-gnome-vfs).  The GNOME virtual file system
+ @end direntry
+ 
+ @titlepage 
+--- guile-gnome-platform-2.15.95/gconf/doc/guile-gnome-gconf.texi.orig	2007-11-01 18:54:51.000000000 +0100
++++ guile-gnome-platform-2.15.95/gconf/doc/guile-gnome-gconf.texi	2007-11-26 23:19:08.788464561 +0100
+@@ -24,7 +24,7 @@
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry 
+-* Guile-GConf: (guile-gnome-gconf.info).  GNOME's configuration system.
++* Guile-GConf: (guile-gnome-gconf).	GNOME's configuration system
+ @end direntry
+ 
+ @titlepage 
