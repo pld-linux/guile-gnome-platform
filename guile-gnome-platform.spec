@@ -5,12 +5,12 @@
 Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
-Version:	2.15.93
+Version:	2.15.95
 Release:	1
 License:	GPL v2+
 Group:		Development/Languages/Scheme
-Source0:	http://ftp.gnu.org/pub/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
-# Source0-md5:	c74e081f8312cdbd4a5bc62e8239203c
+Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
+# Source0-md5:	37b7afe40b86942ef06bdc51661b09f8
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-make.patch
@@ -143,6 +143,7 @@ guile-gnome-gconf to wrapper Guile dla GConfa.
 Summary:	guile-gnome platform - GLib/GObject module
 Summary(pl.UTF-8):	Platforma gnome-guile - moduł GLib/GObject
 Group:		Libraries
+Requires(post,postun):	/sbin/ldconfig
 Requires:	%{name} = %{version}-%{release}
 Requires:	g-wrap >= 2:1.9.8
 Requires:	glib2 >= 1:2.10.0
@@ -284,11 +285,76 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/guile-gnome-0/libgw-guile-gnome-*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-atk
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-atk
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-canvas
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-canvas
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
 %post	-n guile-gnome-corba -p /sbin/ldconfig
 %postun	-n guile-gnome-corba -p /sbin/ldconfig
 
-%post	-n guile-gnome-glib -p /sbin/ldconfig
-%postun	-n guile-gnome-glib -p /sbin/ldconfig
+%post	-n guile-gnome-gconf
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-gconf
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-glib
+/sbin/ldconfig
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-glib
+/sbin/ldconfig
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-gnome-vfs
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-gnome-vfs
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-gtk
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-gtk
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-libglade
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-libglade
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-libgnome
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-libgnome
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-libgnomeui
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-libgnomeui
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-pango
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun	-n guile-gnome-pango
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
 %files
 %defattr(644,root,root,755)
@@ -310,6 +376,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/atk.scm
 %{_datadir}/guile-gnome-0/gnome/gw/atk-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/atk.defs
+%{_infodir}/guile-gnome-atk.info*
 
 %files -n guile-gnome-cairo
 %defattr(644,root,root,755)
@@ -329,6 +396,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/canvas.scm
 %{_datadir}/guile-gnome-0/gnome/gw/canvas-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/libgnomecanvas.defs
+%{_infodir}/guile-gnome-libgnomecanvas.info*
 
 %if %{with gnome}
 %files -n guile-gnome-corba
@@ -356,6 +424,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/gconf.scm
 %{_datadir}/guile-gnome-0/gnome/gw/gconf-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/gconf.defs*
+%{_infodir}/guile-gnome-gconf.info*
 
 %files -n guile-gnome-glib
 %defattr(644,root,root,755)
@@ -376,6 +445,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/gobject-spec.scm
 %{_datadir}/guile-gnome-0/gnome/gw/support
 %{_datadir}/guile-gnome-0/gnome/overrides/glib.defs*
+%{_infodir}/guile-gnome-glib.info*
 
 %files -n guile-gnome-glib-devel
 %defattr(644,root,root,755)
@@ -395,6 +465,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/gnome-vfs.scm
 %{_datadir}/guile-gnome-0/gnome/gw/gnome-vfs-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/gnome-vfs.defs*
+%{_infodir}/guile-gnome-gnome-vfs.info*
 %endif
 
 %files -n guile-gnome-gtk
@@ -413,6 +484,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/overrides/gdk-pixbuf.defs
 %{_datadir}/guile-gnome-0/gnome/overrides/gtk.defs*
 %{_datadir}/guile-gnome-0/gnome/overrides/gtk-customs.defs
+%{_infodir}/guile-gnome-gdk.info*
+%{_infodir}/guile-gnome-gtk.info*
 # gtk-devel
 %{_pkgconfigdir}/guile-gnome-gtk-0.pc
 
@@ -424,6 +497,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/libglade.scm
 %{_datadir}/guile-gnome-0/gnome/gw/libglade-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/libglade.defs
+%{_infodir}/guile-gnome-libglade.info*
 
 %if %{with gnome}
 %files -n guile-gnome-libgnome
@@ -434,6 +508,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/libgnome.scm
 %{_datadir}/guile-gnome-0/gnome/gw/libgnome-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/libgnome.defs
+%{_infodir}/guile-gnome-libgnome.info*
 
 %files -n guile-gnome-libgnomeui
 %defattr(644,root,root,755)
@@ -443,6 +518,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/libgnomeui.scm
 %{_datadir}/guile-gnome-0/gnome/gw/libgnomeui-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/libgnomeui.defs*
+%{_infodir}/guile-gnome-libgnomeui.info*
 # libgnomeui-devel
 %{_pkgconfigdir}/guile-gnome-libgnomeui-0.pc
 %endif
@@ -459,3 +535,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/pangocairo-spec.scm
 %{_datadir}/guile-gnome-0/gnome/overrides/pango.defs*
 %{_datadir}/guile-gnome-0/gnome/overrides/pangocairo.defs*
+%{_infodir}/guile-gnome-pango.info*
+%{_infodir}/guile-gnome-pangocairo.info*
