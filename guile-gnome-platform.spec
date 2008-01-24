@@ -291,26 +291,26 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-p	/sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-atk
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-atk	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-atk
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-atk	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-canvas
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-canvas	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-canvas
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-canvas	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
 %post	-n guile-gnome-corba -p /sbin/ldconfig
 %postun	-n guile-gnome-corba -p /sbin/ldconfig
 
-%post	-n guile-gnome-gconf
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-gconf	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-gconf
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-gconf	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
 %post	-n guile-gnome-glib
 /sbin/ldconfig
@@ -320,41 +320,41 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
-%post	-n guile-gnome-gnome-vfs
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-gnome-vfs	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-gnome-vfs
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-gnome-vfs	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-gtk
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-gtk	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-gtk
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-gtk	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-libglade
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-libglade	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-libglade
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-libglade	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-libgnome
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-libgnome	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-libgnome
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-libgnome	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-libgnomeui
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-libgnomeui	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-libgnomeui
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-libgnomeui	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-pango
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%post	-n guile-gnome-pango	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-pango
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+%postun	-n guile-gnome-pango	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files
 %defattr(644,root,root,755)
