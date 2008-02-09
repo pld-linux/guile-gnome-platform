@@ -5,12 +5,12 @@
 Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
-Version:	2.15.95
+Version:	2.15.96
 Release:	1
 License:	GPL v2+
 Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
-# Source0-md5:	37b7afe40b86942ef06bdc51661b09f8
+# Source0-md5:	bbf72757e07dcdef06998915e9e0b76a
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-make.patch
@@ -101,6 +101,7 @@ canvas.
 Summary:	guile-gnome platform - CORBA module
 Summary(pl.UTF-8):	Platforma gnome-guile - moduł CORBA
 Group:		Libraries
+Requires(post,postun):	/sbin/ldconfig
 Requires:	guile-gnome-glib = %{version}-%{release}
 Requires:	libbonobo >= 2.0
 
@@ -285,31 +286,36 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/guile-gnome-0/libgw-guile-gnome-*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p	/sbin/postshell
+%post	-p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-p	/sbin/postshell
+%postun	-p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-atk	-p	/sbin/postshell
+%post	-n guile-gnome-atk -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-atk	-p	/sbin/postshell
+%postun	-n guile-gnome-atk -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-canvas	-p	/sbin/postshell
+%post	-n guile-gnome-canvas -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-canvas	-p	/sbin/postshell
+%postun	-n guile-gnome-canvas -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-corba -p /sbin/ldconfig
-%postun	-n guile-gnome-corba -p /sbin/ldconfig
+%post	-n guile-gnome-corba
+/sbin/ldconfig
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
-%post	-n guile-gnome-gconf	-p	/sbin/postshell
+%postun	-n guile-gnome-corba
+/sbin/ldconfig
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%post	-n guile-gnome-gconf -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-gconf	-p	/sbin/postshell
+%postun	-n guile-gnome-gconf -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %post	-n guile-gnome-glib
@@ -320,40 +326,40 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
 
-%post	-n guile-gnome-gnome-vfs	-p	/sbin/postshell
+%post	-n guile-gnome-gnome-vfs -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-gnome-vfs	-p	/sbin/postshell
+%postun	-n guile-gnome-gnome-vfs -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-gtk	-p	/sbin/postshell
+%post	-n guile-gnome-gtk -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-gtk	-p	/sbin/postshell
+%postun	-n guile-gnome-gtk -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-libglade	-p	/sbin/postshell
+%post	-n guile-gnome-libglade -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-libglade	-p	/sbin/postshell
+%postun	-n guile-gnome-libglade -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-libgnome	-p	/sbin/postshell
+%post	-n guile-gnome-libgnome -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-libgnome	-p	/sbin/postshell
+%postun	-n guile-gnome-libgnome -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-libgnomeui	-p	/sbin/postshell
+%post	-n guile-gnome-libgnomeui -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-libgnomeui	-p	/sbin/postshell
+%postun	-n guile-gnome-libgnomeui -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-pango	-p	/sbin/postshell
+%post	-n guile-gnome-pango -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-n guile-gnome-pango	-p	/sbin/postshell
+%postun	-n guile-gnome-pango -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files
@@ -375,14 +381,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/atk.scm
 %{_datadir}/guile-gnome-0/gnome/gw/atk.scm
 %{_datadir}/guile-gnome-0/gnome/gw/atk-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/atk.defs
+%{_datadir}/guile-gnome-0/gnome/overrides/atk.defs*
 %{_infodir}/guile-gnome-atk.info*
 
 %files -n guile-gnome-cairo
 %defattr(644,root,root,755)
 %doc cairo/{AUTHORS,ChangeLog,NEWS,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-cairo.so*
-%{_datadir}/guile-gnome-0/gnome/cairo.scm
 %{_datadir}/guile-gnome-0/gnome/gw/cairo.scm
 %{_datadir}/guile-gnome-0/gnome/gw/cairo-spec.scm
 # cairo-devel
@@ -403,11 +408,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc corba/{AUTHORS,ChangeLog,NEWS,README}
 %attr(755,root,root) %{_libdir}/libguile-gnome-corba-0.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguile-gnome-corba-0.so.0
 %attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-corba.so*
 %{_datadir}/guile-gnome-0/gnome/corba.scm
 %{_datadir}/guile-gnome-0/gnome/corba
 %{_datadir}/guile-gnome-0/gnome/gw/corba.scm
 %{_datadir}/guile-gnome-0/gnome/gw/corba-spec.scm
+%{_infodir}/guile-gnome-corba.info*
 
 %files -n guile-gnome-corba-devel
 %defattr(644,root,root,755)
@@ -431,6 +438,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc glib/{AUTHORS,ChangeLog,NEWS*,README,REFCOUNTING,TODO,WARTS}
 %attr(755,root,root) %{_bindir}/guile-gnome-0
 %attr(755,root,root) %{_libdir}/libguile-gnome-gobject-0.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguile-gnome-gobject-0.so.0
 %dir %{_libdir}/guile-gnome-0
 %attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-glib.so*
 %attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-gobject.so*
@@ -446,6 +454,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-0/gnome/gw/support
 %{_datadir}/guile-gnome-0/gnome/overrides/glib.defs*
 %{_infodir}/guile-gnome-glib.info*
+%{_infodir}/guile-gnome-gobject.info*
 
 %files -n guile-gnome-glib-devel
 %defattr(644,root,root,755)
