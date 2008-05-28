@@ -5,12 +5,12 @@
 Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
-Version:	2.15.96
+Version:	2.15.98
 Release:	1
 License:	GPL v2+
 Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
-# Source0-md5:	bbf72757e07dcdef06998915e9e0b76a
+# Source0-md5:	c2ec51c104b9b016d310856803bbb211
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-make.patch
@@ -279,7 +279,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/guile-gnome-0/libgw-guile-gnome-*.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/guile-gnome-2/libgw-guile-gnome-*.la
 # example module
 %{?with_gnome:rm -f $RPM_BUILD_ROOT%{_libdir}/orbit-2.0/Foo_module.*}
 
@@ -365,184 +365,184 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%dir %{_datadir}/guile-gnome-0
-%dir %{_datadir}/guile-gnome-0/gnome
-%{_datadir}/guile-gnome-0/gnome/defs
-%dir %{_datadir}/guile-gnome-0/gnome/gw
-%dir %{_datadir}/guile-gnome-0/gnome/overrides
+%dir %{_datadir}/guile-gnome-2
+%dir %{_datadir}/guile-gnome-2/gnome
+%{_datadir}/guile-gnome-2/gnome/defs
+%dir %{_datadir}/guile-gnome-2/gnome/gw
+%dir %{_datadir}/guile-gnome-2/gnome/overrides
 %{_infodir}/guile-gnome-tutorial.info*
 # devel
-%{_pkgconfigdir}/guile-gnome-defs-0.pc
+%{_pkgconfigdir}/guile-gnome-defs-2.pc
 
 %files -n guile-gnome-atk
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-atk.so*
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-atk.so*
 %doc atk/{AUTHORS,ChangeLog,NEWS,README}
-%{_datadir}/guile-gnome-0/gnome/atk.scm
-%{_datadir}/guile-gnome-0/gnome/gw/atk.scm
-%{_datadir}/guile-gnome-0/gnome/gw/atk-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/atk.defs*
+%{_datadir}/guile-gnome-2/gnome/atk.scm
+%{_datadir}/guile-gnome-2/gnome/gw/atk.scm
+%{_datadir}/guile-gnome-2/gnome/gw/atk-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/atk.defs*
 %{_infodir}/guile-gnome-atk.info*
 
 %files -n guile-gnome-cairo
 %defattr(644,root,root,755)
 %doc cairo/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-cairo.so*
-%{_datadir}/guile-gnome-0/gnome/gw/cairo.scm
-%{_datadir}/guile-gnome-0/gnome/gw/cairo-spec.scm
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-cairo.so*
+%{_datadir}/guile-gnome-2/gnome/gw/cairo.scm
+%{_datadir}/guile-gnome-2/gnome/gw/cairo-spec.scm
 # cairo-devel
-%{_pkgconfigdir}/guile-gnome-cairo-0.pc
+%{_pkgconfigdir}/guile-gnome-cairo-2.pc
 
 %files -n guile-gnome-canvas
 %defattr(644,root,root,755)
 %doc libgnomecanvas/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-canvas.so*
-%{_datadir}/guile-gnome-0/gnome/canvas.scm
-%{_datadir}/guile-gnome-0/gnome/gw/canvas.scm
-%{_datadir}/guile-gnome-0/gnome/gw/canvas-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/libgnomecanvas.defs
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-canvas.so*
+%{_datadir}/guile-gnome-2/gnome/canvas.scm
+%{_datadir}/guile-gnome-2/gnome/gw/canvas.scm
+%{_datadir}/guile-gnome-2/gnome/gw/canvas-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/libgnomecanvas.defs
 %{_infodir}/guile-gnome-libgnomecanvas.info*
 
 %if %{with gnome}
 %files -n guile-gnome-corba
 %defattr(644,root,root,755)
 %doc corba/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/libguile-gnome-corba-0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-gnome-corba-0.so.0
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-corba.so*
-%{_datadir}/guile-gnome-0/gnome/corba.scm
-%{_datadir}/guile-gnome-0/gnome/corba
-%{_datadir}/guile-gnome-0/gnome/gw/corba.scm
-%{_datadir}/guile-gnome-0/gnome/gw/corba-spec.scm
+%attr(755,root,root) %{_libdir}/libguile-gnome-corba-2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguile-gnome-corba-2.so.0
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-corba.so*
+%{_datadir}/guile-gnome-2/gnome/corba.scm
+%{_datadir}/guile-gnome-2/gnome/corba
+%{_datadir}/guile-gnome-2/gnome/gw/corba.scm
+%{_datadir}/guile-gnome-2/gnome/gw/corba-spec.scm
 %{_infodir}/guile-gnome-corba.info*
 
 %files -n guile-gnome-corba-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libguile-gnome-corba-0.so
-%{_libdir}/libguile-gnome-corba-0.la
-%{_includedir}/guile-gnome-0/guile-gnome-corba
+%attr(755,root,root) %{_libdir}/libguile-gnome-corba-2.so
+%{_libdir}/libguile-gnome-corba-2.la
+%{_includedir}/guile-gnome-2/guile-gnome-corba
 %endif
 
 %files -n guile-gnome-gconf
 %defattr(644,root,root,755)
 %doc gconf/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-gconf.so*
-%{_datadir}/guile-gnome-0/gnome/gconf.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gconf.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gconf-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/gconf.defs*
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gconf.so*
+%{_datadir}/guile-gnome-2/gnome/gconf.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gconf.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gconf-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/gconf.defs*
 %{_infodir}/guile-gnome-gconf.info*
 
 %files -n guile-gnome-glib
 %defattr(644,root,root,755)
 %doc glib/{AUTHORS,ChangeLog,NEWS*,README,REFCOUNTING,TODO,WARTS}
-%attr(755,root,root) %{_bindir}/guile-gnome-0
-%attr(755,root,root) %{_libdir}/libguile-gnome-gobject-0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-gnome-gobject-0.so.0
-%dir %{_libdir}/guile-gnome-0
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-glib.so*
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-gobject.so*
-%{_datadir}/guile/site/gnome-0.scm
-%{_datadir}/guile-gnome-0/gnome/glib.scm
-%{_datadir}/guile-gnome-0/gnome/gobject.scm
-%{_datadir}/guile-gnome-0/gnome/gobject
-%{_datadir}/guile-gnome-0/gnome/gw/generics.scm
-%{_datadir}/guile-gnome-0/gnome/gw/glib.scm
-%{_datadir}/guile-gnome-0/gnome/gw/glib-spec.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gobject.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gobject-spec.scm
-%{_datadir}/guile-gnome-0/gnome/gw/support
-%{_datadir}/guile-gnome-0/gnome/overrides/glib.defs*
+%attr(755,root,root) %{_bindir}/guile-gnome-2
+%attr(755,root,root) %{_libdir}/libguile-gnome-gobject-2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguile-gnome-gobject-2.so.0
+%dir %{_libdir}/guile-gnome-2
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-glib.so*
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gobject.so*
+%{_datadir}/guile/site/gnome-2.scm
+%{_datadir}/guile-gnome-2/gnome/glib.scm
+%{_datadir}/guile-gnome-2/gnome/gobject.scm
+%{_datadir}/guile-gnome-2/gnome/gobject
+%{_datadir}/guile-gnome-2/gnome/gw/generics.scm
+%{_datadir}/guile-gnome-2/gnome/gw/glib.scm
+%{_datadir}/guile-gnome-2/gnome/gw/glib-spec.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gobject.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gobject-spec.scm
+%{_datadir}/guile-gnome-2/gnome/gw/support
+%{_datadir}/guile-gnome-2/gnome/overrides/glib.defs*
 %{_infodir}/guile-gnome-glib.info*
 %{_infodir}/guile-gnome-gobject.info*
 
 %files -n guile-gnome-glib-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libguile-gnome-gobject-0.so
-%{_libdir}/libguile-gnome-gobject-0.la
-%dir %{_includedir}/guile-gnome-0
-%{_includedir}/guile-gnome-0/guile-gnome-gobject.h
-%{_includedir}/guile-gnome-0/guile-gnome-gobject
-%{_pkgconfigdir}/guile-gnome-glib-0.pc
+%attr(755,root,root) %{_libdir}/libguile-gnome-gobject-2.so
+%{_libdir}/libguile-gnome-gobject-2.la
+%dir %{_includedir}/guile-gnome-2
+%{_includedir}/guile-gnome-2/guile-gnome-gobject.h
+%{_includedir}/guile-gnome-2/guile-gnome-gobject
+%{_pkgconfigdir}/guile-gnome-glib-2.pc
 
 %if %{with gnome}
 %files -n guile-gnome-gnome-vfs
 %defattr(644,root,root,755)
 %doc gnome-vfs/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-gnome-vfs.so*
-%{_datadir}/guile-gnome-0/gnome/vfs.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gnome-vfs.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gnome-vfs-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/gnome-vfs.defs*
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gnome-vfs.so*
+%{_datadir}/guile-gnome-2/gnome/vfs.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gnome-vfs.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gnome-vfs-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/gnome-vfs.defs*
 %{_infodir}/guile-gnome-gnome-vfs.info*
 %endif
 
 %files -n guile-gnome-gtk
 %defattr(644,root,root,755)
 %doc gtk/{AUTHORS,ChangeLog,NEWS,README,TODO}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-gdk.so*
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-gtk.so*
-%{_datadir}/guile-gnome-0/gnome/contrib
-%{_datadir}/guile-gnome-0/gnome/gtk.scm
-%{_datadir}/guile-gnome-0/gnome/gtk
-%{_datadir}/guile-gnome-0/gnome/gw/gdk.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gdk-spec.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gtk.scm
-%{_datadir}/guile-gnome-0/gnome/gw/gtk-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/gdk.defs*
-%{_datadir}/guile-gnome-0/gnome/overrides/gdk-pixbuf.defs
-%{_datadir}/guile-gnome-0/gnome/overrides/gtk.defs*
-%{_datadir}/guile-gnome-0/gnome/overrides/gtk-customs.defs
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gdk.so*
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gtk.so*
+%{_datadir}/guile-gnome-2/gnome/contrib
+%{_datadir}/guile-gnome-2/gnome/gtk.scm
+%{_datadir}/guile-gnome-2/gnome/gtk
+%{_datadir}/guile-gnome-2/gnome/gw/gdk.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gdk-spec.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gtk.scm
+%{_datadir}/guile-gnome-2/gnome/gw/gtk-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/gdk.defs*
+%{_datadir}/guile-gnome-2/gnome/overrides/gdk-pixbuf.defs
+%{_datadir}/guile-gnome-2/gnome/overrides/gtk.defs*
+%{_datadir}/guile-gnome-2/gnome/overrides/gtk-customs.defs
 %{_infodir}/guile-gnome-gdk.info*
 %{_infodir}/guile-gnome-gtk.info*
 # gtk-devel
-%{_pkgconfigdir}/guile-gnome-gtk-0.pc
+%{_pkgconfigdir}/guile-gnome-gtk-2.pc
 
 %files -n guile-gnome-libglade
 %defattr(644,root,root,755)
 %doc libglade/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-libglade.so*
-%{_datadir}/guile-gnome-0/gnome/glade.scm
-%{_datadir}/guile-gnome-0/gnome/gw/libglade.scm
-%{_datadir}/guile-gnome-0/gnome/gw/libglade-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/libglade.defs
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-libglade.so*
+%{_datadir}/guile-gnome-2/gnome/glade.scm
+%{_datadir}/guile-gnome-2/gnome/gw/libglade.scm
+%{_datadir}/guile-gnome-2/gnome/gw/libglade-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/libglade.defs
 %{_infodir}/guile-gnome-libglade.info*
 
 %if %{with gnome}
 %files -n guile-gnome-libgnome
 %defattr(644,root,root,755)
 %doc libgnome/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-libgnome.so*
-%{_datadir}/guile-gnome-0/gnome/gnome.scm
-%{_datadir}/guile-gnome-0/gnome/gw/libgnome.scm
-%{_datadir}/guile-gnome-0/gnome/gw/libgnome-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/libgnome.defs
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-libgnome.so*
+%{_datadir}/guile-gnome-2/gnome/gnome.scm
+%{_datadir}/guile-gnome-2/gnome/gw/libgnome.scm
+%{_datadir}/guile-gnome-2/gnome/gw/libgnome-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/libgnome.defs
 %{_infodir}/guile-gnome-libgnome.info*
 
 %files -n guile-gnome-libgnomeui
 %defattr(644,root,root,755)
 %doc libgnomeui/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-libgnomeui.so*
-%{_datadir}/guile-gnome-0/gnome/gnome-ui.scm
-%{_datadir}/guile-gnome-0/gnome/gw/libgnomeui.scm
-%{_datadir}/guile-gnome-0/gnome/gw/libgnomeui-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/libgnomeui.defs*
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-libgnomeui.so*
+%{_datadir}/guile-gnome-2/gnome/gnome-ui.scm
+%{_datadir}/guile-gnome-2/gnome/gw/libgnomeui.scm
+%{_datadir}/guile-gnome-2/gnome/gw/libgnomeui-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/libgnomeui.defs*
 %{_infodir}/guile-gnome-libgnomeui.info*
 # libgnomeui-devel
-%{_pkgconfigdir}/guile-gnome-libgnomeui-0.pc
+%{_pkgconfigdir}/guile-gnome-libgnomeui-2.pc
 %endif
 
 %files -n guile-gnome-pango
 %defattr(644,root,root,755)
 %doc pango/{AUTHORS,ChangeLog,NEWS,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-pango.so*
-%attr(755,root,root) %{_libdir}/guile-gnome-0/libgw-guile-gnome-pangocairo.so*
-%{_datadir}/guile-gnome-0/gnome/pango.scm
-%{_datadir}/guile-gnome-0/gnome/gw/pango.scm
-%{_datadir}/guile-gnome-0/gnome/gw/pango-spec.scm
-%{_datadir}/guile-gnome-0/gnome/gw/pangocairo.scm
-%{_datadir}/guile-gnome-0/gnome/gw/pangocairo-spec.scm
-%{_datadir}/guile-gnome-0/gnome/overrides/pango.defs*
-%{_datadir}/guile-gnome-0/gnome/overrides/pangocairo.defs*
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-pango.so*
+%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-pangocairo.so*
+%{_datadir}/guile-gnome-2/gnome/pango.scm
+%{_datadir}/guile-gnome-2/gnome/gw/pango.scm
+%{_datadir}/guile-gnome-2/gnome/gw/pango-spec.scm
+%{_datadir}/guile-gnome-2/gnome/gw/pangocairo.scm
+%{_datadir}/guile-gnome-2/gnome/gw/pangocairo-spec.scm
+%{_datadir}/guile-gnome-2/gnome/overrides/pango.defs*
+%{_datadir}/guile-gnome-2/gnome/overrides/pangocairo.defs*
 %{_infodir}/guile-gnome-pango.info*
 %{_infodir}/guile-gnome-pangocairo.info*
