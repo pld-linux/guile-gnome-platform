@@ -24,7 +24,7 @@ BuildRequires:	glib2-devel >= 1:2.10.0
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.16.0}
 BuildRequires:	gtk+2-devel >= 2:2.10.0
 BuildRequires:	guile-cairo-devel
-BuildRequires:	guile-devel >= 5:1.6.4
+BuildRequires:	guile-devel >= 5:1.8.0
 %{?with_gnome:BuildRequires:	libbonobo-devel >= 2.0}
 BuildRequires:	libglade2-devel >= 1:2.6
 %{?with_gnome:BuildRequires:	libgnome-devel >= 2.16}
@@ -34,7 +34,7 @@ BuildRequires:	libtool
 BuildRequires:	pango-devel >= 1:1.14
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	texinfo
-Requires:	guile >= 5:1.6.4
+Requires:	guile >= 5:1.8.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -164,7 +164,7 @@ Group:		Development/Libraries
 Requires:	guile-gnome-glib = %{version}-%{release}
 Requires:	g-wrap-devel >= 2:1.9.8
 Requires:	glib2-devel >= 1:2.10.0
-Requires:	guile-devel >= 1:1.6.4
+Requires:	guile-devel >= 1:1.8.0
 
 %description -n guile-gnome-glib-devel
 Header files for guile-gnome-glib library.
