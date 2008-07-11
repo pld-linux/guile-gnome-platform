@@ -5,12 +5,12 @@
 Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
-Version:	2.15.98
+Version:	2.16.1
 Release:	1
 License:	GPL v2+
 Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
-# Source0-md5:	c2ec51c104b9b016d310856803bbb211
+# Source0-md5:	fde233c17863b7dfbe6937e4b5c00669
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-make.patch
@@ -370,7 +370,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-2/gnome/defs
 %dir %{_datadir}/guile-gnome-2/gnome/gw
 %dir %{_datadir}/guile-gnome-2/gnome/overrides
-%{_infodir}/guile-gnome-tutorial.info*
 # devel
 %{_pkgconfigdir}/guile-gnome-defs-2.pc
 
@@ -538,6 +537,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-pango.so*
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-pangocairo.so*
 %{_datadir}/guile-gnome-2/gnome/pango.scm
+%{_datadir}/guile-gnome-2/gnome/pangocairo.scm
 %{_datadir}/guile-gnome-2/gnome/gw/pango.scm
 %{_datadir}/guile-gnome-2/gnome/gw/pango-spec.scm
 %{_datadir}/guile-gnome-2/gnome/gw/pangocairo.scm
