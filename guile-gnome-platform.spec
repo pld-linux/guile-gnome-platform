@@ -5,21 +5,23 @@
 Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
-Version:	2.16.1
-Release:	2
+Version:	2.16.2
+Release:	1
 License:	GPL v2+
 Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
-# Source0-md5:	fde233c17863b7dfbe6937e4b5c00669
+# Source0-md5:	eb4a084d13785efaa1639145907a87b4
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-make.patch
+Patch3:		%{name}-glib.patch
 URL:		http://www.gnu.org/software/guile-gnome/
 BuildRequires:	GConf2-devel >= 2.18
 BuildRequires:	atk-devel >= 1:1.12
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	g-wrap-devel >= 2:1.9.8
+BuildRequires:	g-wrap-devel >= 2:1.9.14
+BuildRequires:	gdk-pixbuf2-devel >= 2.10.0
 BuildRequires:	glib2-devel >= 1:2.10.0
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.16.0}
 BuildRequires:	gtk+2-devel >= 2:2.10.0
@@ -146,7 +148,7 @@ Summary(pl.UTF-8):	Platforma gnome-guile - moduł GLib/GObject
 Group:		Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	%{name} = %{version}-%{release}
-Requires:	g-wrap >= 2:1.9.8
+Requires:	g-wrap >= 2:1.9.14
 Requires:	glib2 >= 1:2.10.0
 
 %description -n guile-gnome-glib
@@ -162,7 +164,7 @@ Summary:	Header files for guile-gnome-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki guile-gnome-glib
 Group:		Development/Libraries
 Requires:	guile-gnome-glib = %{version}-%{release}
-Requires:	g-wrap-devel >= 2:1.9.8
+Requires:	g-wrap-devel >= 2:1.9.14
 Requires:	glib2-devel >= 1:2.10.0
 Requires:	guile-devel >= 1:1.8.0
 
@@ -193,6 +195,7 @@ Requires:	guile-gnome-atk = %{version}-%{release}
 Requires:	guile-gnome-cairo = %{version}-%{release}
 Requires:	guile-gnome-glib = %{version}-%{release}
 Requires:	guile-gnome-pango = %{version}-%{release}
+Requires:	gdk-pixbuf2 >= 2.10.0
 Requires:	gtk+2 >= 2:2.10.0
 
 %description -n guile-gnome-gtk
@@ -262,6 +265,7 @@ międzynarodowego tekstu.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -269,8 +273,8 @@ międzynarodowego tekstu.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%configure \
-	--disable-Werror
+%configure
+
 %{__make}
 
 %install
@@ -279,9 +283,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/guile-gnome-2/libgw-guile-gnome-*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/guile-gnome-2/libgw-guile-gnome-*.la
 # example module
-%{?with_gnome:rm -f $RPM_BUILD_ROOT%{_libdir}/orbit-2.0/Foo_module.*}
+%{?with_gnome:%{__rm} $RPM_BUILD_ROOT%{_libdir}/orbit-2.0/Foo_module.*}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -376,7 +380,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n guile-gnome-atk
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-atk.so*
-%doc atk/{AUTHORS,ChangeLog,NEWS,README}
+%doc atk/{AUTHORS,ChangeLog,README}
 %{_datadir}/guile-gnome-2/gnome/atk.scm
 %{_datadir}/guile-gnome-2/gnome/gw/atk.scm
 %{_datadir}/guile-gnome-2/gnome/gw/atk-spec.scm
@@ -385,7 +389,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guile-gnome-cairo
 %defattr(644,root,root,755)
-%doc cairo/{AUTHORS,ChangeLog,NEWS,README}
+%doc cairo/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-cairo.so*
 %{_datadir}/guile-gnome-2/gnome/gw/cairo.scm
 %{_datadir}/guile-gnome-2/gnome/gw/cairo-spec.scm
@@ -394,7 +398,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guile-gnome-canvas
 %defattr(644,root,root,755)
-%doc libgnomecanvas/{AUTHORS,ChangeLog,NEWS,README}
+%doc libgnomecanvas/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-canvas.so*
 %{_datadir}/guile-gnome-2/gnome/canvas.scm
 %{_datadir}/guile-gnome-2/gnome/gw/canvas.scm
@@ -405,7 +409,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with gnome}
 %files -n guile-gnome-corba
 %defattr(644,root,root,755)
-%doc corba/{AUTHORS,ChangeLog,NEWS,README}
+%doc corba/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/libguile-gnome-corba-2.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libguile-gnome-corba-2.so.0
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-corba.so*
@@ -424,7 +428,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guile-gnome-gconf
 %defattr(644,root,root,755)
-%doc gconf/{AUTHORS,ChangeLog,NEWS,README}
+%doc gconf/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gconf.so*
 %{_datadir}/guile-gnome-2/gnome/gconf.scm
 %{_datadir}/guile-gnome-2/gnome/gw/gconf.scm
@@ -434,7 +438,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guile-gnome-glib
 %defattr(644,root,root,755)
-%doc glib/{AUTHORS,ChangeLog,NEWS*,README,REFCOUNTING,TODO,WARTS}
+%doc glib/{AUTHORS,ChangeLog,NEWS.guile-gobject,README,REFCOUNTING,THREADING,TODO,WARTS}
 %attr(755,root,root) %{_bindir}/guile-gnome-2
 %attr(755,root,root) %{_libdir}/libguile-gnome-gobject-2.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libguile-gnome-gobject-2.so.0
@@ -467,7 +471,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with gnome}
 %files -n guile-gnome-gnome-vfs
 %defattr(644,root,root,755)
-%doc gnome-vfs/{AUTHORS,ChangeLog,NEWS,README}
+%doc gnome-vfs/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gnome-vfs.so*
 %{_datadir}/guile-gnome-2/gnome/vfs.scm
 %{_datadir}/guile-gnome-2/gnome/gw/gnome-vfs.scm
@@ -478,7 +482,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guile-gnome-gtk
 %defattr(644,root,root,755)
-%doc gtk/{AUTHORS,ChangeLog,NEWS,README,TODO}
+%doc gtk/{AUTHORS,ChangeLog,README,TODO}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gdk.so*
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gtk.so*
 %{_datadir}/guile-gnome-2/gnome/contrib
@@ -499,7 +503,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guile-gnome-libglade
 %defattr(644,root,root,755)
-%doc libglade/{AUTHORS,ChangeLog,NEWS,README}
+%doc libglade/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-libglade.so*
 %{_datadir}/guile-gnome-2/gnome/glade.scm
 %{_datadir}/guile-gnome-2/gnome/gw/libglade.scm
@@ -510,7 +514,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with gnome}
 %files -n guile-gnome-libgnome
 %defattr(644,root,root,755)
-%doc libgnome/{AUTHORS,ChangeLog,NEWS,README}
+%doc libgnome/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-libgnome.so*
 %{_datadir}/guile-gnome-2/gnome/gnome.scm
 %{_datadir}/guile-gnome-2/gnome/gw/libgnome.scm
@@ -520,7 +524,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guile-gnome-libgnomeui
 %defattr(644,root,root,755)
-%doc libgnomeui/{AUTHORS,ChangeLog,NEWS,README}
+%doc libgnomeui/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-libgnomeui.so*
 %{_datadir}/guile-gnome-2/gnome/gnome-ui.scm
 %{_datadir}/guile-gnome-2/gnome/gw/libgnomeui.scm
@@ -533,7 +537,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guile-gnome-pango
 %defattr(644,root,root,755)
-%doc pango/{AUTHORS,ChangeLog,NEWS,README}
+%doc pango/{AUTHORS,ChangeLog,README}
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-pango.so*
 %attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-pangocairo.so*
 %{_datadir}/guile-gnome-2/gnome/pango.scm

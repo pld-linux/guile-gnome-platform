@@ -1,0 +1,11 @@
+--- guile-gnome-platform-2.16.2/glib/gnome/gobject/guile-support.h.orig	2012-05-07 17:29:35.000000000 +0200
++++ guile-gnome-platform-2.16.2/glib/gnome/gobject/guile-support.h	2012-05-26 09:05:47.617222958 +0200
+@@ -24,7 +24,7 @@
+ #ifndef __GUILE_SUPPORT_H__
+ #define __GUILE_SUPPORT_H__
+ 
+-#include <glib/gmacros.h>
++#include <glib.h>
+ 
+ #include <libguile.h>
+ 
