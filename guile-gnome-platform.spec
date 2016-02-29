@@ -5,28 +5,27 @@
 Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
-Version:	2.16.2
+Version:	2.16.4
 Release:	1
 License:	GPL v2+
 Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
-# Source0-md5:	eb4a084d13785efaa1639145907a87b4
+# Source0-md5:	930178554957a25209c6ca0adeb3a584
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-make.patch
-Patch3:		%{name}-glib.patch
 URL:		http://www.gnu.org/software/guile-gnome/
 BuildRequires:	GConf2-devel >= 2.18
 BuildRequires:	atk-devel >= 1:1.12
-BuildRequires:	autoconf >= 2.52
-BuildRequires:	automake
-BuildRequires:	g-wrap-devel >= 2:1.9.14
+BuildRequires:	autoconf >= 2.61
+BuildRequires:	automake >= 1:1.12
+BuildRequires:	g-wrap-devel >= 2:1.9.15
 BuildRequires:	gdk-pixbuf2-devel >= 2.10.0
 BuildRequires:	glib2-devel >= 1:2.10.0
 %{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.16.0}
 BuildRequires:	gtk+2-devel >= 2:2.10.0
 BuildRequires:	guile-cairo-devel
-BuildRequires:	guile-devel >= 5:1.8.0
+BuildRequires:	guile-devel >= 5:2.0
 %{?with_gnome:BuildRequires:	libbonobo-devel >= 2.0}
 BuildRequires:	libglade2-devel >= 1:2.6
 %{?with_gnome:BuildRequires:	libgnome-devel >= 2.16}
@@ -36,7 +35,7 @@ BuildRequires:	libtool
 BuildRequires:	pango-devel >= 1:1.14
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	texinfo
-Requires:	guile >= 5:1.8.0
+Requires:	guile >= 5:2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -148,7 +147,7 @@ Summary(pl.UTF-8):	Platforma gnome-guile - moduł GLib/GObject
 Group:		Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	%{name} = %{version}-%{release}
-Requires:	g-wrap >= 2:1.9.14
+Requires:	g-wrap >= 2:1.9.15
 Requires:	glib2 >= 1:2.10.0
 
 %description -n guile-gnome-glib
@@ -164,7 +163,7 @@ Summary:	Header files for guile-gnome-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki guile-gnome-glib
 Group:		Development/Libraries
 Requires:	guile-gnome-glib = %{version}-%{release}
-Requires:	g-wrap-devel >= 2:1.9.14
+Requires:	g-wrap-devel >= 2:1.9.15
 Requires:	glib2-devel >= 1:2.10.0
 Requires:	guile-devel >= 1:1.8.0
 
@@ -265,7 +264,6 @@ międzynarodowego tekstu.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -283,6 +281,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libguile-gnome-*.la
+# dlopened modules
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/guile-gnome-2/libgw-guile-gnome-*.la
 # example module
 %{?with_gnome:%{__rm} $RPM_BUILD_ROOT%{_libdir}/orbit-2.0/Foo_module.*}
@@ -422,7 +423,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n guile-gnome-corba-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libguile-gnome-corba-2.so
-%{_libdir}/libguile-gnome-corba-2.la
 %{_includedir}/guile-gnome-2/guile-gnome-corba
 %endif
 
@@ -462,7 +462,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n guile-gnome-glib-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libguile-gnome-gobject-2.so
-%{_libdir}/libguile-gnome-gobject-2.la
 %dir %{_includedir}/guile-gnome-2
 %{_includedir}/guile-gnome-2/guile-gnome-gobject.h
 %{_includedir}/guile-gnome-2/guile-gnome-gobject

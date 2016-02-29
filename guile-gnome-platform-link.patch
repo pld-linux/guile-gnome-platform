@@ -9,3 +9,14 @@
  libguile_gnome_corba_@API_VERSION@_la_LDFLAGS = -export-dynamic # FIXME: version info
  
  guile_gnome_includedir = $(includedir)/guile-gnome-@API_VERSION@
+--- guile-gnome-platform-2.16.4/gnome-vfs/gnome/gw/Makefile.am.orig	2015-01-24 15:07:42.000000000 +0100
++++ guile-gnome-platform-2.16.4/gnome-vfs/gnome/gw/Makefile.am	2016-02-29 18:57:24.314595083 +0100
+@@ -20,7 +20,7 @@
+ 	$(AM_CFLAGS) $(GNOME_VFS_CFLAGS) $(GUILE_CFLAGS) \
+ 	$(G_WRAP_CFLAGS) $(GNOME_VFS_DEPRECATED_CFLAGS)
+ 
+-libgw_guile_gnome_gnome_vfs_la_LIBADD = $(GNOME_VFS_LIBS) $(GUILE_LIBS) \
++libgw_guile_gnome_gnome_vfs_la_LIBADD = $(GNOME_VFS_LIBS) -lbonobo-activation $(GUILE_LIBS) \
+ 	$(G_WRAP_LIBS) $(GUILE_GLIB_LIBS)
+ 
+ libgw_guile_gnome_gnome_vfs_la_LDFLAGS = -module
