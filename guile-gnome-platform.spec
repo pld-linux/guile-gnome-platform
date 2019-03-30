@@ -1,18 +1,17 @@
 #
 # Conditional build:
-%bcond_without	gnome	# GNOME components (corba/bonobo, gnome-vfs, libgnome, libgnomeui)
+%bcond_without	gnome	# GNOME components (bonobo, libgnome, libgnomeui)
 #
 Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
-Version:	2.16.4
-Release:	2
+Version:	2.16.5
+Release:	1
 License:	GPL v2+
 Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
-# Source0-md5:	930178554957a25209c6ca0adeb3a584
+# Source0-md5:	5fb232f2a236df88072acda203cf72a8
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-link.patch
 Patch2:		%{name}-make.patch
 URL:		http://www.gnu.org/software/guile-gnome/
 BuildRequires:	GConf2-devel >= 2.18
@@ -22,7 +21,6 @@ BuildRequires:	automake >= 1:1.12
 BuildRequires:	g-wrap-devel >= 2:1.9.15
 BuildRequires:	gdk-pixbuf2-devel >= 2.10.0
 BuildRequires:	glib2-devel >= 1:2.10.0
-%{?with_gnome:BuildRequires:	gnome-vfs2-devel >= 2.16.0}
 BuildRequires:	gtk+2-devel >= 2:2.10.0
 BuildRequires:	guile-cairo-devel
 BuildRequires:	guile-devel >= 5:2.0
@@ -35,6 +33,9 @@ BuildRequires:	libtool
 BuildRequires:	pango-devel >= 1:1.14
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	texinfo
+Obsoletes:	guile-gnome-corba
+Obsoletes:	guile-gnome-corba-devel
+Obsoletes:	guile-gnome-gnome-vfs
 Requires:	guile >= 5:2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -98,36 +99,6 @@ guile-gnome-canvas is a Guile wrapper for the GNOME canvas library.
 guile-gnome-canvas to wrapper Guile dla biblioteki widgetu GNOME
 canvas.
 
-%package -n guile-gnome-corba
-Summary:	guile-gnome platform - CORBA module
-Summary(pl.UTF-8):	Platforma gnome-guile - moduł CORBA
-Group:		Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	guile-gnome-glib = %{version}-%{release}
-Requires:	libbonobo >= 2.0
-
-%description -n guile-gnome-corba
-guile-gnome-corba is a Guile wrapper for CORBA, an interprocess
-communication library and server.
-
-%description -n guile-gnome-corba -l pl.UTF-8
-guile-gnome-corba to wrapper Guile dla komponentu CORBA - biblioteki i
-serwera komunikacji międzyprocesowej.
-
-%package -n guile-gnome-corba-devel
-Summary:	Header files for guile-gnome-corba library
-Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki guile-gnome-corba
-Group:		Development/Libraries
-Requires:	guile-gnome-corba = %{version}-%{release}
-Requires:	guile-gnome-glib-devel = %{version}-%{release}
-Requires:	libbonobo-devel >= 2.0
-
-%description -n guile-gnome-corba-devel
-Header files for guile-gnome-corba library.
-
-%description -n guile-gnome-corba-devel -l pl.UTF-8
-Pliki nagłówkowe biblioteki guile-gnome-corba.
-
 %package -n guile-gnome-gconf
 Summary:	guile-gnome platform - GConf module
 Summary(pl.UTF-8):	Platforma gnome-guile - moduł GConf
@@ -172,19 +143,6 @@ Header files for guile-gnome-glib library.
 
 %description -n guile-gnome-glib-devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki guile-gnome-glib.
-
-%package -n guile-gnome-gnome-vfs
-Summary:	guile-gnome platform - gnome-vfs module
-Summary(pl.UTF-8):	Platforma gnome-guile - moduł gnome-vfs
-Group:		Development/Languages/Scheme
-Requires:	guile-gnome-glib = %{version}-%{release}
-Requires:	gnome-vfs2-libs >= 2.16.0
-
-%description -n guile-gnome-gnome-vfs
-guile-gnome-gnome-vfs is a Guile wrapper for gnome-vfs.
-
-%description -n guile-gnome-gnome-vfs -l pl.UTF-8
-guile-gnome-gnome-vfs to wrapper Guile dla biblioteki gnome-vfs.
 
 %package -n guile-gnome-gtk
 Summary:	guile-gnome platform - GTK/GDK module
@@ -262,7 +220,6 @@ międzynarodowego tekstu.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1
 
 %build
@@ -285,8 +242,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libguile-gnome-*.la
 # dlopened modules
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/guile-gnome-2/libgw-guile-gnome-*.la
-# example module
-%{?with_gnome:%{__rm} $RPM_BUILD_ROOT%{_libdir}/orbit-2.0/Foo_module.*}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -309,14 +264,6 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-n guile-gnome-canvas -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	-n guile-gnome-corba
-/sbin/ldconfig
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
-
-%postun	-n guile-gnome-corba
-/sbin/ldconfig
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
-
 %post	-n guile-gnome-gconf -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
@@ -330,12 +277,6 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-n guile-gnome-glib
 /sbin/ldconfig
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
-
-%post	-n guile-gnome-gnome-vfs -p /sbin/postshell
--/usr/sbin/fix-info-dir -c %{_infodir}
-
-%postun	-n guile-gnome-gnome-vfs -p /sbin/postshell
--/usr/sbin/fix-info-dir -c %{_infodir}
 
 %post	-n guile-gnome-gtk -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
@@ -407,25 +348,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile-gnome-2/gnome/overrides/libgnomecanvas.defs
 %{_infodir}/guile-gnome-libgnomecanvas.info*
 
-%if %{with gnome}
-%files -n guile-gnome-corba
-%defattr(644,root,root,755)
-%doc corba/{AUTHORS,ChangeLog,README}
-%attr(755,root,root) %{_libdir}/libguile-gnome-corba-2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-gnome-corba-2.so.0
-%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-corba.so*
-%{_datadir}/guile-gnome-2/gnome/corba.scm
-%{_datadir}/guile-gnome-2/gnome/corba
-%{_datadir}/guile-gnome-2/gnome/gw/corba.scm
-%{_datadir}/guile-gnome-2/gnome/gw/corba-spec.scm
-%{_infodir}/guile-gnome-corba.info*
-
-%files -n guile-gnome-corba-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libguile-gnome-corba-2.so
-%{_includedir}/guile-gnome-2/guile-gnome-corba
-%endif
-
 %files -n guile-gnome-gconf
 %defattr(644,root,root,755)
 %doc gconf/{AUTHORS,ChangeLog,README}
@@ -466,18 +388,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/guile-gnome-2/guile-gnome-gobject.h
 %{_includedir}/guile-gnome-2/guile-gnome-gobject
 %{_pkgconfigdir}/guile-gnome-glib-2.pc
-
-%if %{with gnome}
-%files -n guile-gnome-gnome-vfs
-%defattr(644,root,root,755)
-%doc gnome-vfs/{AUTHORS,ChangeLog,README}
-%attr(755,root,root) %{_libdir}/guile-gnome-2/libgw-guile-gnome-gnome-vfs.so*
-%{_datadir}/guile-gnome-2/gnome/vfs.scm
-%{_datadir}/guile-gnome-2/gnome/gw/gnome-vfs.scm
-%{_datadir}/guile-gnome-2/gnome/gw/gnome-vfs-spec.scm
-%{_datadir}/guile-gnome-2/gnome/overrides/gnome-vfs.defs*
-%{_infodir}/guile-gnome-gnome-vfs.info*
-%endif
 
 %files -n guile-gnome-gtk
 %defattr(644,root,root,755)

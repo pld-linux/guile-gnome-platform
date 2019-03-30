@@ -108,17 +108,6 @@
  @end direntry
  
  @titlepage 
---- guile-gnome-platform-2.15.95/gnome-vfs/doc/guile-gnome-gnome-vfs.texi.orig	2007-11-08 11:55:57.000000000 +0100
-+++ guile-gnome-platform-2.15.95/gnome-vfs/doc/guile-gnome-gnome-vfs.texi	2007-11-26 23:20:25.764851195 +0100
-@@ -24,7 +24,7 @@
- 
- @dircategory The Algorithmic Language Scheme
- @direntry 
--* Guile-GNOME-VFS: (guile-gnome-gnome-vfs.info).  The GNOME virtual file system.
-+* Guile-GNOME-VFS: (guile-gnome-gnome-vfs).  The GNOME virtual file system
- @end direntry
- 
- @titlepage 
 --- guile-gnome-platform-2.15.95/gconf/doc/guile-gnome-gconf.texi.orig	2007-11-01 18:54:51.000000000 +0100
 +++ guile-gnome-platform-2.15.95/gconf/doc/guile-gnome-gconf.texi	2007-11-26 23:19:08.788464561 +0100
 @@ -24,7 +24,7 @@
@@ -138,17 +127,6 @@
  @direntry 
 -* Guile-GNOME: GObject: (guile-gnome-gobject.info).  The GLib object system in Scheme.
 +* Guile-GObject: (guile-gnome-gobject).	The GLib object system in Scheme
- @end direntry
- 
- @titlepage 
---- guile-gnome-platform-2.15.96/corba/doc/guile-gnome-corba.texi.orig	2007-12-06 12:48:51.000000000 +0100
-+++ guile-gnome-platform-2.15.96/corba/doc/guile-gnome-corba.texi	2008-02-09 23:59:52.235868826 +0100
-@@ -24,7 +24,7 @@
- 
- @dircategory The Algorithmic Language Scheme
- @direntry 
--* Guile-GNOME: CORBA: (guile-gnome-corba.info).  Remote objects with CORBA in Scheme.
-+* Guile-CORBA: (guile-gnome-corba).	Remote objects with CORBA in Scheme
  @end direntry
  
  @titlepage 
