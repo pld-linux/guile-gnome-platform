@@ -6,7 +6,7 @@ Summary:	guile-gnome platform
 Summary(pl.UTF-8):	Platforma guile-gnome
 Name:		guile-gnome-platform
 Version:	2.16.5
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
