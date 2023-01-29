@@ -33,9 +33,9 @@ BuildRequires:	libtool
 BuildRequires:	pango-devel >= 1:1.14
 BuildRequires:	pkgconfig >= 1:0.9.0
 BuildRequires:	texinfo
-Obsoletes:	guile-gnome-corba
-Obsoletes:	guile-gnome-corba-devel
-Obsoletes:	guile-gnome-gnome-vfs
+Obsoletes:	guile-gnome-corba < 2.16.5
+Obsoletes:	guile-gnome-corba-devel < 2.16.5
+Obsoletes:	guile-gnome-gnome-vfs < 2.16.5
 Requires:	guile >= 5:2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
