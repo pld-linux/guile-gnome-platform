@@ -1,0 +1,356 @@
+--- guile-gnome-platform-2.16.5/configure.ac.orig	2017-06-03 11:16:45.000000000 +0200
++++ guile-gnome-platform-2.16.5/configure.ac	2023-01-29 08:13:13.714123427 +0100
+@@ -81,7 +81,7 @@ AC_HELP_STRING([--disable-deprecated],[D
+ ### Check for Guile
+ ###
+ 
+-GUILE_PKG([2.2 2.0])
++GUILE_PKG([3.0 2.2 2.0])
+ GUILE_PROGS([2.0.14])
+ GUILE_SITE_DIR
+ GUILE_FLAGS
+--- guile-gnome-platform-2.16.5/glib/gnome/gobject/gtype.c.orig	2015-01-24 15:09:05.000000000 +0100
++++ guile-gnome-platform-2.16.5/glib/gnome/gobject/gtype.c	2023-01-29 10:53:11.465461287 +0100
+@@ -188,7 +188,7 @@ SCM_DEFINE (scm_gtype_name_to_class, "gt
+     if (!type)
+         scm_c_gruntime_error (FUNC_NAME,
+                               "No GType registered with name ~A",
+-                              SCM_LIST1 (name));
++                              scm_list_1 (name));
+ 
+     scm_dynwind_end ();
+ 
+@@ -209,7 +209,7 @@ SCM_DEFINE_STATIC (scm_sys_gtype_class_b
+     if (scm_c_gtype_class_to_gtype (class))
+         scm_c_gruntime_error (FUNC_NAME,
+                               "Class ~A already has a GType",
+-                              SCM_LIST1 (type_name));
++                              scm_list_1 (type_name));
+ 
+     scm_dynwind_begin (0);
+     c_type_name = scm_to_locale_string (type_name);
+@@ -219,13 +219,13 @@ SCM_DEFINE_STATIC (scm_sys_gtype_class_b
+     if (!gtype)
+         scm_c_gruntime_error (FUNC_NAME,
+                               "No GType registered with name ~A",
+-                              SCM_LIST1 (type_name));
++                              scm_list_1 (type_name));
+ 
+ 
+     if (SCM_NFALSEP (scm_c_gtype_lookup_class (gtype)))
+         scm_c_gruntime_error (FUNC_NAME,
+                               "~A already has a GOOPS class, use gtype-name->class",
+-                              SCM_LIST1 (type_name));
++                              scm_list_1 (type_name));
+     
+     g_type_set_qdata (gtype, quark_class, scm_permanent_object (class));
+     scm_slot_set_x (class, scm_sym_gtype, scm_from_ulong (gtype));
+@@ -278,7 +278,7 @@ SCM_DEFINE_STATIC (scm_sys_gtype_class_i
+             SCM_STRUCT_DATA (parent)[scm_vtable_index_instance_finalize];
+     } else {
+         scm_c_gruntime_error (FUNC_NAME, "No free function for SCM class %s!",
+-                              SCM_LIST1 (class));
++                              scm_list_1 (class));
+ #else
+     } else {
+         SCM parent = scm_cadr (scm_class_precedence_list (class));
+@@ -431,7 +431,7 @@ scm_c_gtype_instance_construct (SCM obje
+     else
+         scm_c_gruntime_error ("%gtype-instance-construct",
+                               "Don't know how to construct instances of class ~A",
+-                              SCM_LIST1 (scm_c_gtype_to_class (type)));
++                              scm_list_1 (scm_c_gtype_to_class (type)));
+     return NULL;
+ }
+ 
+@@ -498,7 +498,7 @@ scm_gtype_instance_unbind (scm_t_bits *s
+ {
+     gpointer instance = (gpointer)slots[0];
+     
+-    if (instance && instance != SCM_UNBOUND) {
++    if (instance && instance != SCM_UNSPECIFIED) {
+         DEBUG_ALLOC ("unbind c object 0x%p", instance);
+ 
+         slots[0] = 0;
+@@ -530,7 +530,7 @@ SCM_DEFINE_STATIC (scm_sys_gtype_instanc
+ {
+     gpointer ginstance = (gpointer)SCM_STRUCT_DATA (instance)[0];
+ 
+-    if (ginstance && ginstance != (gpointer)SCM_UNBOUND) {
++    if (ginstance && ginstance != (gpointer)SCM_UNSPECIFIED) {
+         scm_c_gtype_instance_initialize_scm (instance, ginstance);
+     } else {
+         gpointer new_ginstance;
+@@ -586,17 +586,17 @@ scm_c_scm_to_gtype_instance (SCM instanc
+     */
+     ulong = scm_from_ulong (SCM_STRUCT_DATA (instance)[0]);
+ 
+-    if (ulong == SCM_UNBOUND)
++    if (ulong == SCM_UNSPECIFIED)
+         scm_c_gruntime_error ("%scm->gtype-instance",
+                               "Object ~A is uninitialized.",
+-                              SCM_LIST1 (instance));
++                              scm_list_1 (instance));
+ 
+     ginstance = (gpointer)scm_to_ulong (ulong);
+     
+     if (!ginstance)
+         scm_c_gruntime_error ("%scm->gtype-instance",
+                               "Object ~A has been destroyed.",
+-                              SCM_LIST1 (instance));
++                              scm_list_1 (instance));
+ 
+     return ginstance;
+ }
+--- guile-gnome-platform-2.16.5/gconf/gnome/gw/gconf-support.c.orig	2015-01-24 15:07:42.000000000 +0100
++++ guile-gnome-platform-2.16.5/gconf/gnome/gw/gconf-support.c	2023-01-29 10:53:47.588598925 +0100
+@@ -101,18 +101,18 @@ scm_c_gconf_value_to_scm (const GConfVal
+                 break;
+             default:
+                 scm_throw (scm_from_locale_symbol ("unknown-value"),
+-                           SCM_LIST1 (scm_from_int (t)));
++                           scm_list_1 (scm_from_int (t)));
+             }
+         }
+         g_slist_free (head);
+-        return scm_reverse_x (ret, SCM_UNBOUND);
++        return scm_reverse_x (ret, SCM_UNSPECIFIED);
+     }
+     case GCONF_VALUE_PAIR:
+         return scm_cons (scm_c_gconf_value_to_scm (gconf_value_get_car (value)),
+                          scm_c_gconf_value_to_scm (gconf_value_get_cdr (value)));
+     default:
+         scm_throw (scm_from_locale_symbol ("unknown-value"),
+-                   SCM_LIST1 (scm_from_int (value->type)));
++                   scm_list_1 (scm_from_int (value->type)));
+     }
+     return SCM_BOOL_F; /* shouldn't get here */
+ }
+--- guile-gnome-platform-2.16.5/gtk/gnome/gw/gtk-support.c.orig	2015-01-24 15:07:42.000000000 +0100
++++ guile-gnome-platform-2.16.5/gtk/gnome/gw/gtk-support.c	2023-01-29 14:08:47.868546401 +0100
+@@ -513,7 +513,7 @@ _wrap_gtk_stock_lookup (const gchar *sto
+     GtkStockItem item;
+ 	
+     if (gtk_stock_lookup (stock_id, &item)) {
+-        return SCM_LIST5 (scm_from_locale_string (item.stock_id),
++        return scm_list_5 (scm_from_locale_string (item.stock_id),
+                           scm_from_locale_string (item.label),
+                           scm_from_uint (item.modifier),
+                           scm_from_uint (item.keyval),
+@@ -724,7 +724,7 @@ _wrap_gtk_text_buffer_get_bounds (GtkTex
+     gtk_text_buffer_get_bounds (buf, &start, &end);
+     sstart = scm_c_gvalue_new_from_boxed (GTK_TYPE_TEXT_ITER, &start);
+     send = scm_c_gvalue_new_from_boxed (GTK_TYPE_TEXT_ITER, &end);
+-    return scm_values (SCM_LIST2 (sstart, send));
++    return scm_values (scm_list_2 (sstart, send));
+ }
+ 
+ SCM
+@@ -736,9 +736,9 @@ _wrap_gtk_text_buffer_get_selection_boun
+     if (gtk_text_buffer_get_selection_bounds (buf, &start, &end)) {
+         sstart = scm_c_gvalue_new_from_boxed (GTK_TYPE_TEXT_ITER, &start);
+         send = scm_c_gvalue_new_from_boxed (GTK_TYPE_TEXT_ITER, &end);
+-        return scm_values (SCM_LIST2 (sstart, send));
++        return scm_values (scm_list_2 (sstart, send));
+     }
+-    return scm_values (SCM_LIST2 (SCM_BOOL_F, SCM_BOOL_F));
++    return scm_values (scm_list_2 (SCM_BOOL_F, SCM_BOOL_F));
+ }
+ 
+ GtkTextIter*
+@@ -848,9 +848,9 @@ _wrap_gtk_tree_selection_get_selected (G
+         g_object_ref (model);
+         smodel = scm_c_gtype_instance_to_scm ((GTypeInstance*)model);
+         siter = scm_c_gvalue_new_from_boxed (GTK_TYPE_TREE_ITER, &iter);
+-        return scm_values (SCM_LIST2 (smodel, siter));
++        return scm_values (scm_list_2 (smodel, siter));
+     }
+-    return scm_values (SCM_LIST2 (SCM_BOOL_F, SCM_BOOL_F));
++    return scm_values (scm_list_2 (SCM_BOOL_F, SCM_BOOL_F));
+ }
+ 
+ GtkTreeStore*
+@@ -959,12 +959,12 @@ _wrap_gtk_tree_view_get_path_at_pos (Gtk
+ 
+         gtk_tree_path_free (path);
+ 
+-        return scm_values (SCM_LIST4 (spath, scolumn, scm_from_int (cell_x),
++        return scm_values (scm_list_4 (spath, scolumn, scm_from_int (cell_x),
+                                       scm_from_int (cell_y)));
+     }
+ 
+     return scm_values (
+-        SCM_LIST4 (SCM_BOOL_F, SCM_BOOL_F, SCM_BOOL_F, SCM_BOOL_F));
++        scm_list_4 (SCM_BOOL_F, SCM_BOOL_F, SCM_BOOL_F, SCM_BOOL_F));
+ }
+ 
+ static void
+--- guile-gnome-platform-2.16.5/glib/gnome/gobject/gsignal.c.orig	2015-01-24 15:07:42.000000000 +0100
++++ guile-gnome-platform-2.16.5/glib/gnome/gobject/gsignal.c	2023-01-29 14:09:57.314836845 +0100
+@@ -95,7 +95,7 @@ SCM_DEFINE (scm_gsignal_query, "gsignal-
+     free (cname);
+     if (!id)
+         scm_c_gruntime_error (FUNC_NAME, "Unknown signal ~A on class ~A",
+-                              SCM_LIST2 (name, class));
++                              scm_list_2 (name, class));
+ 
+     return scm_c_gsignal_query (id);
+ }
+@@ -207,7 +207,7 @@ SCM_DEFINE (scm_gtype_instance_signal_em
+   
+     if (!id)
+         scm_c_gruntime_error (FUNC_NAME, "Unknown signal ~A on object ~A",
+-                              SCM_LIST2 (name, object));
++                              scm_list_2 (name, object));
+ 
+     g_signal_query (id, &query);
+   
+--- guile-gnome-platform-2.16.5/glib/gnome/gobject/gparameter.c.orig	2015-08-03 03:34:15.000000000 +0200
++++ guile-gnome-platform-2.16.5/glib/gnome/gobject/gparameter.c	2023-01-29 14:10:37.611285207 +0100
+@@ -33,7 +33,7 @@
+ 
+ #define SCM_ERROR_NOT_YET_IMPLEMENTED(what) \
+   scm_c_gruntime_error (FUNC_NAME, "Not yet implemented: file ~S line ~S: ~A", \
+-			SCM_LIST3 (scm_makfrom0str (__FILE__), scm_from_uint (__LINE__), what))
++			scm_list_3 (scm_makfrom0str (__FILE__), scm_from_uint (__LINE__), what))
+ 
+ 
+ 
+@@ -410,7 +410,7 @@ scm_c_gparam_construct (SCM instance, SC
+     else {
+         scm_c_gruntime_error ("%gparam-construct",
+                               "Can't create instance of ~A from initargs: ~A",
+-                              SCM_LIST2 (scm_class_of (instance), initargs));
++                              scm_list_2 (scm_class_of (instance), initargs));
+     }
+     
+     DEBUG_ALLOC ("new guile-owned param spec %p of type %s",
+--- guile-gnome-platform-2.16.5/glib/gnome/gobject/gvalue.c.orig	2015-01-24 15:07:42.000000000 +0100
++++ guile-gnome-platform-2.16.5/glib/gnome/gobject/gvalue.c	2023-01-29 14:11:01.981153184 +0100
+@@ -289,7 +289,7 @@ scm_c_gvalue_set (GValue *gvalue, SCM va
+             return;
+         } else {
+             scm_c_gruntime_error (FUNC_NAME, "Can't make ~a into ~a",
+-                                  SCM_LIST2 (value, scm_c_gtype_to_class (gtype)));
++                                  scm_list_2 (value, scm_c_gtype_to_class (gtype)));
+             return;
+         }
+     }
+@@ -405,7 +405,7 @@ scm_c_gvalue_set (GValue *gvalue, SCM va
+         
+         scm_c_gruntime_error (FUNC_NAME,
+                               "Don't know how to make values of type ~A",
+-                              SCM_LIST1 (scm_c_gtype_to_class (gtype)));
++                              scm_list_1 (scm_c_gtype_to_class (gtype)));
+     }
+ }
+ #undef FUNC_NAME
+@@ -419,7 +419,7 @@ scm_c_scm_to_enum_value (GEnumClass *enu
+ #define ERROR(x)                                                        \
+     scm_c_gruntime_error                                                \
+         (FUNC_NAME, "Bad enum value for enumerated type `~a': ~a",      \
+-         SCM_LIST2 (scm_from_locale_string                              \
++         scm_list_2 (scm_from_locale_string                              \
+                     (g_type_name (G_TYPE_FROM_CLASS (enum_class))), x))
+ 
+     if (scm_is_signed_integer (value, SCM_T_INT32_MIN, SCM_T_INT32_MAX)) {
+@@ -473,7 +473,7 @@ scm_c_scm_to_flags_value (GFlagsClass *f
+ #define ERROR(x)                                                        \
+     scm_c_gruntime_error                                                \
+         (FUNC_NAME, "Bad value for flags type `~a': ~a",                \
+-         SCM_LIST2 (scm_from_locale_string                              \
++         scm_list_2 (scm_from_locale_string                              \
+                     (g_type_name (G_TYPE_FROM_CLASS (flags_class))), x))
+ 
+     if (scm_is_unsigned_integer (value, 0, SCM_T_UINT32_MAX)) {
+@@ -753,7 +753,7 @@ SCM_DEFINE (scm_genum_register_static, "
+     if (type)
+         scm_c_gruntime_error (FUNC_NAME,
+                               "There is already a type with this name: ~S",
+-                              SCM_LIST1 (name));
++                              scm_list_1 (name));
+ 
+     length = scm_c_vector_length (vtable);
+ 
+@@ -807,7 +807,7 @@ SCM_DEFINE (scm_gflags_register_static,
+     if (type)
+ 	scm_c_gruntime_error (FUNC_NAME,
+                               "There is already a type with this name: ~S",
+-                              SCM_LIST1 (name));
++                              scm_list_1 (name));
+ 
+     length = scm_c_vector_length (vtable);
+ 
+--- guile-gnome-platform-2.16.5/glib/gnome/gobject/gobject.c.orig	2015-01-24 15:09:05.000000000 +0100
++++ guile-gnome-platform-2.16.5/glib/gnome/gobject/gobject.c	2023-01-29 14:11:28.074345158 +0100
+@@ -190,7 +190,7 @@ scm_c_gobject_construct (SCM instance, S
+         if (!pspec)
+             scm_c_gruntime_error (FUNC_NAME,
+                                   "No property named ~S in object ~A",
+-                                  SCM_LIST2 (propname, instance));
++                                  scm_list_2 (propname, instance));
+         
+         g_value_init (&current->value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+         scm_c_gvalue_set (&current->value, val);
+@@ -354,17 +354,17 @@ SCM_DEFINE (scm_gtype_register_static, "
+     if (gtype)
+         scm_c_gruntime_error (FUNC_NAME,
+                               "There is already a type with this name: ~S",
+-                              SCM_LIST1 (name));
++                              scm_list_1 (name));
+ 
+     if (!G_TYPE_IS_DERIVABLE (gtype_parent))
+         scm_c_gruntime_error (FUNC_NAME,
+                               "Cannot derive ~S from non-derivable parent type: ~S",
+-                              SCM_LIST2 (name, parent_class));
++                              scm_list_2 (name, parent_class));
+ 
+     if (!G_TYPE_IS_FUNDAMENTAL (gtype_parent) && !G_TYPE_IS_DEEP_DERIVABLE (gtype_parent))
+         scm_c_gruntime_error (FUNC_NAME,
+                               "Cannot derive ~S from non-fundamental parent type: ~S",
+-                              SCM_LIST2 (name, parent_class));
++                              scm_list_2 (name, parent_class));
+ 
+     g_type_query (gtype_parent, &gtype_query);
+ 
+@@ -492,19 +492,19 @@ SCM_DEFINE (scm_gobject_class_install_pr
+     if (g_object_class_find_property (gclass, gparam->name))
+         scm_error (sym_gruntime_error, FUNC_NAME,
+                    "There is already a property with this name in class ~S: ~S",
+-                   SCM_LIST2 (class, scm_from_locale_string (gparam->name)),
++                   scm_list_2 (class, scm_from_locale_string (gparam->name)),
+ 		   SCM_EOL);
+ 
+     guile_class = g_type_get_qdata (gtype, quark_guile_gtype_class);
+     if (!guile_class)
+         scm_error (sym_gruntime_error, FUNC_NAME,
+                    "Can't add properties to non-derived type: ~S",
+-                   SCM_LIST1 (class), SCM_EOL);
++                   scm_list_1 (class), SCM_EOL);
+ 
+     if (guile_class->first_instance_created)
+         scm_error (sym_gruntime_error, FUNC_NAME,
+                    "Can't add properties after intances have been created: ~S",
+-                   SCM_LIST1 (class), SCM_EOL);
++                   scm_list_1 (class), SCM_EOL);
+ 
+     id = ++guile_class->last_property_id;
+     g_object_class_install_property (gclass, id, gparam);
+@@ -539,7 +539,7 @@ SCM_DEFINE (scm_gobject_get_property, "g
+     if (!pspec)
+         scm_error (sym_gruntime_error, FUNC_NAME,
+                    "No such property ~S in class ~S",
+-                   SCM_LIST2 (name, scm_class_of (object)), SCM_EOL);
++                   scm_list_2 (name, scm_class_of (object)), SCM_EOL);
+ 
+     g_value_init (&value, pspec->value_type);
+     g_object_get_property (gobject, pspec->name, &value);
+@@ -574,7 +574,7 @@ SCM_DEFINE (scm_gobject_set_property, "g
+     if (!pspec)
+         scm_error (sym_gruntime_error, FUNC_NAME,
+                    "No such property ~S in class ~S",
+-                   SCM_LIST2 (name, scm_class_of (object)), SCM_EOL);
++                   scm_list_2 (name, scm_class_of (object)), SCM_EOL);
+ 
+     gvalue = scm_c_scm_to_gvalue (pspec->value_type, value);
+     g_object_set_property (gobject, pspec->name, gvalue);

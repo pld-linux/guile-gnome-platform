@@ -12,6 +12,7 @@ Group:		Development/Languages/Scheme
 Source0:	http://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/%{name}-%{version}.tar.gz
 # Source0-md5:	5fb232f2a236df88072acda203cf72a8
 Patch0:		%{name}-info.patch
+Patch1:		%{name}-guile3.patch
 Patch2:		%{name}-make.patch
 URL:		http://www.gnu.org/software/guile-gnome/
 BuildRequires:	GConf2-devel >= 2.18
@@ -220,6 +221,7 @@ międzynarodowego tekstu.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 %patch2 -p1
 
 %build
