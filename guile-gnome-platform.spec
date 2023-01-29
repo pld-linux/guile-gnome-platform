@@ -16,14 +16,14 @@ Patch2:		%{name}-make.patch
 URL:		http://www.gnu.org/software/guile-gnome/
 BuildRequires:	GConf2-devel >= 2.18
 BuildRequires:	atk-devel >= 1:1.12
-BuildRequires:	autoconf >= 2.61
-BuildRequires:	automake >= 1:1.12
+BuildRequires:	autoconf >= 2.69
+BuildRequires:	automake >= 1:1.14
 BuildRequires:	g-wrap-devel >= 2:1.9.15
 BuildRequires:	gdk-pixbuf2-devel >= 2.10.0
 BuildRequires:	glib2-devel >= 1:2.10.0
 BuildRequires:	gtk+2-devel >= 2:2.10.0
 BuildRequires:	guile-cairo-devel
-BuildRequires:	guile-devel >= 5:2.0
+BuildRequires:	guile-devel >= 5:2.0.14
 %{?with_gnome:BuildRequires:	libbonobo-devel >= 2.0}
 BuildRequires:	libglade2-devel >= 1:2.6
 %{?with_gnome:BuildRequires:	libgnome-devel >= 2.16}
@@ -36,7 +36,7 @@ BuildRequires:	texinfo
 Obsoletes:	guile-gnome-corba < 2.16.5
 Obsoletes:	guile-gnome-corba-devel < 2.16.5
 Obsoletes:	guile-gnome-gnome-vfs < 2.16.5
-Requires:	guile >= 5:2.0
+Requires:	guile >= 5:2.0.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
